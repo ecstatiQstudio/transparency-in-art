@@ -427,3 +427,7 @@ FodyWeavers.xsd
 *.msix
 *.msm
 *.msp
+ConsoleApp/.vscode/extensions.json
+ConsoleApp/.vscode/launch.json
+ConsoleApp/.vscode/tasks.json
+.DS_Store
