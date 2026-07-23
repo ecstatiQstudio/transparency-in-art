@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Text.Json;
+using System.Threading;
 using Melanchall.DryWetMidi.Core;
 using Melanchall.DryWetMidi.Interaction;
 
@@ -48,3 +49,14 @@ using (StreamReader streamReader = new StreamReader(configuration.pathToInputTim
 
     lyrics = JsonSerializer.Deserialize<Classes.Lyrics>(json);
 }
+
+Classes.Room room = new Classes.Room(configuration, 800, 600);
+
+room.Run();
+
+while (!room.IsReady)
+{
+    Thread.Sleep(100);
+}
+
+Thread.Sleep(10000);
