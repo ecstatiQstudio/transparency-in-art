@@ -4,9 +4,10 @@ namespace Classes
 {
     public class Room
     {
-        public Room(Classes.Configuration configuration, int width, int height)
+        public Room(Classes.Configuration configuration, Classes.Configuration.Instrument instrument, int width, int height)
         {
             _configuration = configuration;
+            _instrument = instrument;
             _width = width;
             _height = height;
 
@@ -17,7 +18,7 @@ namespace Classes
                 NumberOfSamples = 0
             };
 
-            _game = new Classes.Game(GameWindowSettings.Default, nativeWindowSettings, _configuration);
+            _game = new Classes.Game(GameWindowSettings.Default, nativeWindowSettings, _configuration, _instrument);
         }
 
         public void Run()
@@ -33,6 +34,7 @@ namespace Classes
         public bool IsReady { get { return _game.IsReady; } }
 
         private Classes.Configuration _configuration { get; set; }
+        private Classes.Configuration.Instrument _instrument { get; set; }
         private int _width { get; set; }
         private int _height { get; set; }
         private Classes.Game _game { get; set; }

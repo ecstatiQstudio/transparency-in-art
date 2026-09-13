@@ -7,10 +7,11 @@ namespace Classes
 {
     public class Game : GameWindow
     {
-        public Game(GameWindowSettings gameWindowSettings, NativeWindowSettings nativeWindowSettings, Classes.Configuration configuration)
+        public Game(GameWindowSettings gameWindowSettings, NativeWindowSettings nativeWindowSettings, Classes.Configuration configuration, Classes.Configuration.Instrument instrument)
             : base(gameWindowSettings, nativeWindowSettings)
         {
             _configuration = configuration;
+            _instrument = instrument;
             _run = true;
         }
 
@@ -28,7 +29,7 @@ namespace Classes
             GL.Enable(EnableCap.FramebufferSrgb);
 
             _camera = new Classes.Camera(((float)Size.X) / ((float)Size.Y));
-            _scene = new Classes.Scene(_configuration);
+            _scene = new Classes.Scene(_configuration, _instrument);
             _renderer = new Classes.Renderer();
         }
 
@@ -57,6 +58,7 @@ namespace Classes
         public bool IsReady { get { return _isReady; } }
 
         private Classes.Configuration _configuration { get; set; }
+        private Classes.Configuration.Instrument _instrument { get; set; }
         private bool _run { get; set; }
         private bool _isReady { get; set; }
         private Classes.Camera _camera { get; set; }

@@ -4,10 +4,16 @@ namespace Classes
 {
     public class Mesh
     {
-        public Mesh(int mrTexture, int albedoTexture, float[] vertices, uint[] indices)
+        public Mesh(System.Numerics.Vector4 color, float metallicFactor, float roughnessFactor, bool hasMetallicRoughnessTexture, int mrTexture, int albedoTexture, bool hasNormalTexture, int normalTexture, float[] vertices, uint[] indices)
         {
+            _color = color;
+            _metallicFactor = metallicFactor;
+            _roughnessFactor = roughnessFactor;
+            _hasMetallicRoughnessTexture = hasMetallicRoughnessTexture;
             _mrTexture = mrTexture;
             _albedoTexture = albedoTexture;
+            _hasNormalTexture = hasNormalTexture;
+            _normalTexture = normalTexture;
             _vertices = vertices;
             _indices = indices;
             
@@ -40,8 +46,14 @@ namespace Classes
         public int MRTexture { get { return _mrTexture; } }
         public int Vao { get { return _vao; } }
 
+        private System.Numerics.Vector4 _color { get; set; }
+        private float _metallicFactor { get; set; }
+        private float _roughnessFactor { get; set; }
+        private bool _hasMetallicRoughnessTexture { get; set; }
         private int _mrTexture { get; set; }
         private int _albedoTexture { get; set; }
+        private bool _hasNormalTexture { get; set; }
+        private int _normalTexture { get; set; }
         private float[] _vertices { get; set; }
         private uint[] _indices { get; set; }
         private int _vao { get; set; }

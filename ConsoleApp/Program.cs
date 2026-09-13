@@ -50,13 +50,30 @@ using (StreamReader streamReader = new StreamReader(configuration.pathToInputTim
     lyrics = JsonSerializer.Deserialize<Classes.Lyrics>(json);
 }
 
-Classes.Room room = new Classes.Room(configuration, 800, 600);
-
-room.Run();
-
-while (!room.IsReady)
+// create video for each instrument
+foreach (Classes.Configuration.Instrument instrument in configuration.instruments)
 {
-    Thread.Sleep(100);
+    Classes.Room room = new Classes.Room(configuration, instrument, 800, 600);
+
+    ParameterizedThreadStart parameterizedThreadStart = new ParameterizedThreadStart((object obj) =>
+    {
+        Classes.Room room = ((Classes.Room)obj);
+
+        while (!room.IsReady)
+        {
+            Thread.Sleep(1000);
+        }
+
+        Thread.Sleep(10000);
+
+        room.Stop();
+    });
+
+    Thread thread = new Thread(parameterizedThreadStart);
+
+    thread.Start(room);
+
+    room.Run();
 }
 
-Thread.Sleep(10000);
+Console.WriteLine("");
